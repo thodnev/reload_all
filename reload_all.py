@@ -4,6 +4,7 @@ A recursive reloader inpired by Mark Lutz's book.
 Author: thodnev
 '''
 import importlib, sys
+from types import ModuleType
 
 def reload_all(top_module, max_depth=20):
     '''
@@ -18,19 +19,18 @@ def reload_all(top_module, max_depth=20):
     Optional attribute max_depth defines maximum recursion
     limit to avoid infinite loops while tracing
     '''
-    module_type = type(importlib)   # get the 'module' type
     for_reload = dict() # modules to reload: K=module, V=depth
     
     def trace_reload(module, depth):    # recursive
         nonlocal for_reload
         depth += 1
-        if type(module) == module_type and depth < max_depth:
+        if type(module) == ModuleType and depth < max_depth:
             # if module is deeper and could be reloaded
             if (for_reload.get(module, 0) < depth
                 and hasattr(module, '__file__') ):
                     for_reload[module] = depth
             # trace through all attributes recursively       
-            for name, attr in module.__dict__.items():
+            for attr in module.__dict__.values():
                 trace_reload(attr, depth)
 
 
