@@ -3,7 +3,7 @@ A recursive reloader inpired by Mark Lutz's book.
 
 Author: thodnev
 '''
-import importlib, sys
+import imp, sys
 from types import ModuleType
 
 def reload_all(top_module, max_depth=20):
@@ -22,7 +22,6 @@ def reload_all(top_module, max_depth=20):
     for_reload = dict() # modules to reload: K=module, V=depth
     
     def trace_reload(module, depth):    # recursive
-        nonlocal for_reload
         depth += 1
         if type(module) == ModuleType and depth < max_depth:
             # if module is deeper and could be reloaded
@@ -40,7 +39,7 @@ def reload_all(top_module, max_depth=20):
     not_reloaded = dict()
     for module in reload_list:
         try:
-            importlib.reload(module)
+            imp.reload(module)
         except:     # catch and write all errors
             not_reloaded[module]=sys.exc_info()[0]
             
