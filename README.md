@@ -1,7 +1,7 @@
 # reload_all
 A recursive reloader inpired by Mark Lutz's book.
 
-~Currently only Python3 is supported~ Python 3 and 2 major versions are supported
+~~Currently only Python3 is supported~~ Python 3 and 2 major versions are supported
 
 ```python
   def reload_all(top_module, max_depth=20):
