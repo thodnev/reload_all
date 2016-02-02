@@ -7,7 +7,7 @@ import importlib, sys
 
 def reload_all(top_module, max_depth=20):
     '''
-    A recursive function, which recursively traverses through
+    A reload function, which recursively traverses through
     all submodules of top_module and reloads them from most-
     nested to least-nested. Only modules containing __file__
     attribute could be reloaded.
